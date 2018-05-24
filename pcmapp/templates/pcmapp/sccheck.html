@@ -1,0 +1,13 @@
+{% extends "pcmapp/base_site.html" %}
+{% block title %}<title>Peugeot Club Malaysia</title>{% endblock %}
+{% block content %}
+
+<h1>SC Check</h1>
+<form method="POST" action="{% url 'pcmapp:sccheck' %}">
+    {% csrf_token %}
+    {{ form }}
+    <input type='submit' value='Search'>
+</form>
+
+{% endblock %}Member SC view
+

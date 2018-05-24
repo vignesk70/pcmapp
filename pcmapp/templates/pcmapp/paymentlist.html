@@ -1,0 +1,19 @@
+ Payess detail
+
+ <table>
+         <tr>
+        <th>ID</th>
+        <th>Member Name</th>
+        <th>Paid date </th>
+
+    </tr>
+    {% for payee in payment %}
+    <tr>
+        <td>{{payee.id}}</td>
+        <td>{{payee.member__member_name}}</td>
+        <td>{{payee.payment_receipt_date}}</td>
+
+    </tr>
+
+    {% endfor %}
+    </table>

@@ -1,0 +1,81 @@
+{% extends "pcmapp/base_site.html" %}
+{% block title %}<title>Peugeot Club Malaysia</title>{% endblock %}
+{% block head %}
+{% load static %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('.inline.{{ car_form.prefix }}').formset({
+                prefix: '{{ car_form.prefix }}',
+            });
+            $('.inline.{{ reciept_form.prefix }}').formset({
+                prefix: '{{ reciept_form.prefix }}',
+            });
+        });
+    </script>
+
+
+{%endblock%}
+{% block content %}
+
+<h1>New Member Registration</h1>
+<h2>Member Details</h2>
+<p>Please key in your personal details in the section below as accurately as possible.</p>
+<form method="POST" action="{% url 'pcmapp:newregistration' %}">{% csrf_token %}
+    <div class="form-group">
+        {{ form.as_p }}
+    </div>
+
+    <fieldset>
+        <h2>Car details</h2>
+        <p>Please key in your car details. You may enter up to 2 cars at any time.</p>
+        {{ car_form.management_form }}
+        {{ car_form.non_form_errors }}
+        {% for form in car_form %}
+                    {{ form.id }}
+                    <div class="inline {{ car_form.prefix }}">
+                        {{ form.car_reg_no.errors }}
+                        {{ form.car_reg_no.label_tag }}
+                        {{ form.car_reg_no }}
+                        {{ form.car_model.errors }}
+                        {{ form.car_model.label_tag }}
+                        {{ form.car_model }}
+                        {{ form.car_engine_chasis.errors }}
+                        {{ form.car_engine_chasis.label_tag }}
+                        {{ form.car_engine_chasis }}
+                        {{ form.car_primary_sec.errors }}
+                        {{ form.car_primary_sec.label_tag }}
+                        {{ form.car_primary_sec }}
+
+                    </div>
+                {% endfor %}
+        <h2>Payment details</h2>
+        <p>Please key in your payment details.</p>
+        {{ receipt_form.management_form }}
+        {{ receipt_form.non_form_errors }}
+        {% for form in receipt_form %}
+                    {{ form.id }}
+                    <div class="inline {{ reciept_form.prefix }}">
+                        {{ form.payment_date.errors }}
+                        {{ form.payment_date.label_tag }}
+                        {{ form.payment_date }}
+                        {{ form.payment_amount.errors }}
+                        {{ form.payment_amount.label_tag }}
+                        {{ form.payment_amount }}
+                        {{ form.payment_type.errors }}
+                        {{ form.payment_type.label_tag }}
+                        {{ form.payment_type }}
+                        {{ form.payment_receipt_image.errors }}
+                        {{ form.payment_receipt_image.label_tag }}
+                        {{ form.payment_receipt_image }}
+
+                    </div>
+                {% endfor %}
+
+    </fieldset>
+
+    <input type='submit' value='Register'>
+</form>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "pcmapp/base_site.html" %}
+{% block title %}<title>Peugeot Club Malaysia</title>{% endblock %}
+{% block content %}
+<script>
+    $(function () {
+        $('.datetime-input').datetimepicker({
+            format:'YYYY-MM-DD'
+        });
+    });
+</script>
+<h1>New Registration</h1>
+<form method="POST" action="{% url 'pcmapp:newcarregistration' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type='submit' value='Register'>
+</form>
+
+{% endblock %}
