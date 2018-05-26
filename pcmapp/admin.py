@@ -13,12 +13,13 @@ class PaymentInLine(admin.TabularInline):
 
 class CarInLine(admin.TabularInline):
     model = Car
+    search_fields = ['car.car_reg_no']
     choices =1
 
 class MemberAdmin(admin.ModelAdmin):
     #fields = ['member_name','member_expiry_date']
-    search_fields = ['member_name']
-    list_display = ('member_name','member_expiry_date','member_phone',)
+    search_fields = ['member_name','car.car_reg_no']
+    list_display = ('member_name','member_since','member_expiry_date','member_phone',)
     inlines = [CarInLine,PaymentInLine]
 
 #class CarAdmin(admin.ModelAdmin):

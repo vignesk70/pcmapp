@@ -66,7 +66,7 @@ class Car(models.Model):
     member_id = models.ForeignKey(Member, on_delete=models.CASCADE)
     car_reg_no = models.CharField(max_length=20, verbose_name='Registration Number')
     car_model = models.CharField(max_length=20, verbose_name='Model')
-    car_engine_chasis = models.CharField(max_length=20, verbose_name='Engine Chassis')
+    car_engine_chasis = models.CharField(max_length=20, verbose_name='Engine Chassis',blank=True,null=True)
     car_primary_sec = models.SmallIntegerField(blank=True,null=True,choices=PRIMARY_SEC_CHOICES, verbose_name='Primary/Secondary Car')
     car_status = models.BooleanField(default=True,verbose_name='Status')
     def __str__(self):
