@@ -1,5 +1,5 @@
 from django import forms
-from django.forms.models import inlineformset_factory, BaseInlineFormSet
+from django.forms.models import inlineformset_factory
 from .models import Member, Car, Payment
 
 class NewMemberRegistrationForm(forms.ModelForm):
@@ -18,11 +18,6 @@ class NewMemberCarRegistrationForm(forms.ModelForm):
         model=Car
         fields = ['member_id','car_reg_no','car_model','car_engine_chasis']
 
-class SCCheckForm(forms.Form):
-    car_reg_no = forms.CharField(label='Car Registration number', max_length=20)
-
-
-
 CarRegistrationFormSet =  inlineformset_factory(Member,
     Car,
     fields = ['member_id','car_reg_no','car_model','car_engine_chasis','car_primary_sec'],
@@ -33,3 +28,5 @@ PaymentFormSet = inlineformset_factory(Member,
     extra=1,
     widgets = {'payment_date':forms.DateInput(attrs={'type': 'date', 'format' :'YYYY-MM-DD'})})
 
+class SCCheckForm(forms.Form):
+    car_reg_no = forms.CharField(label='Car Registration number', max_length=20)

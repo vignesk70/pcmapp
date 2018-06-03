@@ -15,4 +15,5 @@ urlpatterns = [
     path('member/registration/registrationsuccess/',views.RegistrationSuccess.as_view(),name='registrationsuccess'),
     path('member/registration/car', views.NewCarRegistrationCreate.as_view(), name='newcarregistration'),
     path('member/sccheck',views.SCcheckView.as_view(),name='sccheck'),
+    path('member/sccheckdetails',views.SCcheckDetailView.as_view(),name='sccheckdetails'),
 ]

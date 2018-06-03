@@ -5,6 +5,8 @@
 <h1>SC Check</h1>
 <form method="POST" action="{% url 'pcmapp:sccheck' %}">
     {% csrf_token %}
+    {{ form.management_form }}
+    {{ form.non_form_errors }}
     {{ form }}
     <input type='submit' value='Search'>
 </form>

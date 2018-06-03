@@ -1,0 +1,14 @@
+{% extends "pcmapp/base_site.html" %}
+{% block title %}<title>Peugeot Club Malaysia</title>{% endblock %}
+{% block content %}
+
+<h1>Member detail view</h1>
+<ul>{%for car in object_list %}
+    <li>{{car.car_reg_no}}</li>
+</ul>
+Car Registration Number:
+Car Model:
+Members Name:
+Membership Expiry Date:
+Member Phone Number:
+{% endblock %}

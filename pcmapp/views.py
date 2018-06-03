@@ -59,15 +59,6 @@ class NewCarRegistrationCreate(CreateView):
        context = super(NewCarRegistrationCreate, self).get_context_data(**kwargs)
        return context
 
-
-class SCcheckView(generic.FormView):
-    #model=Car
-    template_name = 'pcmapp/sccheck.html'
-    form_class = SCCheckForm
-    success_url = 'sccheck'
-    #context_object_name = 'sccheck'
-    queryset = Member.objects.filter()
-
 class NewMemberRegistrationView(CreateView):
     template_name = 'pcmapp/newregistration.html'
     model = Member
@@ -111,3 +102,18 @@ class NewMemberRegistrationView(CreateView):
 
 class RegistrationSuccess(generic.TemplateView):
     template_name = 'pcmapp/registrationsuccess.html'
+
+class SCcheckView(generic.FormView):
+    model=Car
+    template_name = 'pcmapp/sccheck.html'
+    form_class = SCCheckForm
+    success_url = 'sccheckdetails'
+
+
+class SCcheckDetailView(DetailView):
+    model = Car
+    template_name = 'pcmapp/sccheck_detail.html'
+
+
+
+
