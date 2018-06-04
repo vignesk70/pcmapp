@@ -9,7 +9,7 @@ class PCMAdminSite(AdminSite):
 
 class PaymentInLine(admin.TabularInline):
     model = Payment
-    choices = 1
+    extras = 1
 
 class CarInLine(admin.TabularInline):
     model = Car
@@ -17,17 +17,14 @@ class CarInLine(admin.TabularInline):
     choices =1
 
 class MemberAdmin(admin.ModelAdmin):
-    #fields = ['member_name','member_expiry_date']
     search_fields = ['member_name']
-    list_display = ('member_name','member_since','member_expiry_date','member_phone',)
+    list_display = ('member_name','member_since','member_expiry_date','member_phone','owner')
     inlines = [CarInLine,PaymentInLine]
 
-#class CarAdmin(admin.ModelAdmin):
-#    #list_display = ('car_reg_no')
-#    search_fields = ['car_reg_no']
-#    inlines = [PaymentInLine]
+class CarAdmin(admin.ModelAdmin):
+    ist_display = ('car_reg_no', 'member_id')
 
 admin_site = PCMAdminSite(name='pcmadmin')
 admin_site.register(Member,MemberAdmin)
-
+admin_site.register(Car,CarAdmin)
 

@@ -38,14 +38,22 @@
       <ul class="sidebar-nav">
           <li><a href="{% url 'pcmapp:index' %}">Home</a></li>
           <li><a href="{% url 'pcmapp:newregistration' %}">New Member Registrations</a></li>
-          <li><a href="">Member Login</a></li>
+          <li><a href="/pcmadmin">Admin Login</a></li>
+          {% if user.is_authenticated %}
           <li><a href="">Member - View Details</a></li>
 
-          <li><a href="/pcmadmin">Admin Login</a></li>
+
           <li><a href="">Dashboard</a></li>
           <li><a href="">Admin-View New Registration</a></li>
           <li><a href="">Admin-View Member List</a></li>
           <li><a href="{% url 'pcmapp:sccheck' %}">SC Buddies Query</a></li>
+            {%endif%}
+            {% if user.is_authenticated %}
+            <li>User: {{ user.get_username }}</li>
+            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+            {% endif %}
       </ul>
      {% endblock %}
       </div>

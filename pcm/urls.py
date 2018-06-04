@@ -21,5 +21,6 @@ urlpatterns = [
     path('pcmapp/',include('pcmapp.urls')),
     path('admin/', admin.site.urls),
     path('pcmadmin/', admin_site.urls),
+    path('member/', include('django.contrib.auth.urls')),
 
 ]

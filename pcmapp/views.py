@@ -7,6 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .forms import NewMemberRegistrationForm,SCCheckForm, CarRegistrationFormSet,PaymentFormSet
 from .models import Member,Payment,Car
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -103,7 +104,7 @@ class NewMemberRegistrationView(CreateView):
 class RegistrationSuccess(generic.TemplateView):
     template_name = 'pcmapp/registrationsuccess.html'
 
-class SCcheckView(generic.FormView):
+class SCcheckView(LoginRequiredMixin,generic.FormView):
     model=Car
     template_name = 'pcmapp/sccheck.html'
     form_class = SCCheckForm
@@ -114,6 +115,8 @@ class SCcheckDetailView(DetailView):
     model = Car
     template_name = 'pcmapp/sccheck_detail.html'
 
-
+class MemberDetailView(DetailView):
+    model=Member
+    template_name='pcmapp/member_detail.html'
 
 

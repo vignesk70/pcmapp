@@ -2,6 +2,7 @@ from django.db import models
 from datetime import date
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -44,6 +45,7 @@ class Member(models.Model):
     member_on_chat = models.BooleanField(default=True,verbose_name = 'Would you like to be added to our WhatsApp Group?' )
     member_source = models.CharField(max_length=2,choices = SOURCE_CHOICES,blank=True,null=True,verbose_name = 'Where did you hear about us?')
     member_expiry_date = models.DateField(blank=True,null=True)
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.member_name
@@ -95,6 +97,5 @@ class Payment(models.Model):
     payment_amount = models.IntegerField(verbose_name='Payment Amount')
     payment_type = models.CharField(max_length=1,choices = PAYMENT_CHOICES,verbose_name='Payment For')
     payment_receipt_image = models.FileField(upload_to='uploadreceipt',null=True,blank=True,verbose_name='Proof of Payment')
-
 
 
