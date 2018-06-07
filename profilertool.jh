@@ -1,0 +1,72 @@
+entity ConditionLookup {
+	conditionId Integer
+    conditionName String
+}
+
+entity MailboxStatus {
+	mailboxId Integer
+    conditionName Integer
+    flag String
+}
+
+// an ignored comment
+/** Batches being generated */
+entity Batch {
+	batchId Integer,
+	batchName String,
+	batchStartDate LocalDate,
+	batchEndDate LocalDate
+    batchStatus String
+    batchFileTotalCount Integer
+    batchFileCompletedCount Integer
+}
+/** Relationhsip between batch and mailbox generated*/
+entity MailBoxBatch{
+	mailboxId Integer
+    batchId Integer
+    status String
+}
+
+entity Stats{
+	landscapeSelId Integer
+    count Integer
+    executionDate LocalDate
+}
+
+entity Landscape{
+	landscapeId Integer
+    landscapeName String
+}
+
+entity LandscapeSelection {
+	landscapeId Integer
+    conditionLookupId Integer
+    lookupValues String 
+}
+
+relationship OneToOne {
+	ConditionLookup{conditionId} to MailboxStatus,
+    ConditionLookup{conditionId} to LandscapeSelection
+}
+
+relationship OneToMany {
+	Batch{batchId} to MailBoxBatch,
+    MailboxStatus{mailboxId} to MailBoxBatch
+}
+
+relationship OneToMany {
+	Landscape{landscapeId} to LandscapeSelection
+    LandscapeSelection{landscapeSelId} to Stats
+}
+
+
+// Set pagination options
+paginate JobHistory, Employee with infinite-scroll
+paginate Job with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Employee, Job
+// Set an angular suffix
+angularSuffix * with mySuffix
