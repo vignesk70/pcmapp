@@ -4,7 +4,6 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.urls import reverse
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
 from .forms import NewMemberRegistrationForm,SCCheckForm, CarRegistrationFormSet,PaymentFormSet
 from .models import Member,Payment,Car
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -54,7 +53,7 @@ class NewRegistrationCreate(CreateView):
 class NewCarRegistrationCreate(CreateView):
     model = Car
     template_name = 'pcmapp/newcarregistration.html'
-    fields = ['car_member_id','car_reg_no','car_model','car_engine_chasis']
+    fields = ['car_reg_no','car_model','car_engine_chasis']
     sucess_url = 'pcmapp:index'
     def get_context_data(self, **kwargs):
        context = super(NewCarRegistrationCreate, self).get_context_data(**kwargs)
@@ -109,14 +108,31 @@ class SCcheckView(LoginRequiredMixin,generic.FormView):
     template_name = 'pcmapp/sccheck.html'
     form_class = SCCheckForm
     success_url = 'sccheckdetails'
+    def get_queryset(self, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        memberid=Car.objects.all().filter(car_reg_no=form.car_reg_no)
+        context = super(SCcheckView, self).get_context_data(**kwargs)
+        context['memberid']=memberid
+        return context
+#    def get_context_data(self, **kwargs):
+#        context = super(SCcheckView, self).get_context_data(**kwargs)
+#        context['memberid']=memberid
+#        return context
 
 
-class SCcheckDetailView(DetailView):
+
+class SCcheckDetailView(generic.DetailView):
     model = Car
     template_name = 'pcmapp/sccheck_detail.html'
 
-class MemberDetailView(DetailView):
+class MemberDetailView(generic.DetailView):
     model=Member
     template_name='pcmapp/member_detail.html'
 
+class NewMemberListView(generic.ListView):
+    model=Member
+    template_name= 'pcmapp/new_member_list.html'
+    paginate_by=20
+    queryset =  Member.objects.all().filter(member_expiry_date__isnull=True)
 

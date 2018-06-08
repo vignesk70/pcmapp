@@ -29,4 +29,4 @@ PaymentFormSet = inlineformset_factory(Member,
     widgets = {'payment_date':forms.DateInput(attrs={'type': 'date', 'format' :'YYYY-MM-DD'})})
 
 class SCCheckForm(forms.Form):
-    car_reg_no = forms.CharField(label='Car Registration number', max_length=20)
+    car_reg_no = forms.CharField(label='Car Registration number', max_length=10)

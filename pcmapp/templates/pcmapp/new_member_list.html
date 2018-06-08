@@ -1,0 +1,27 @@
+{% extends "pcmapp/base_site.html" %}
+{% block title %}<title>Peugeot Club Malaysia</title>{% endblock %}
+{% block content %}
+    <h1>New Member List</h1>
+    {%if object_list%}
+    <table class="table">
+        <thead><tr>
+            <th>Member name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            </tr>
+    </thead>
+
+        {%for member in object_list %}
+            <tr>
+              <td><a href="/pcmapp/member/{{member.pk}}">{{member.member_name}}</a></td>
+              <td>{{member.member_email}}</td>
+              <td>{{member.member_phone}}</td>
+            </tr>
+        {%endfor%}
+        {%else %}
+        <p>No new member registrations. </p>
+
+    </table>
+    {% endif%}
+
+{% endblock %}

@@ -58,8 +58,14 @@ class Member(models.Model):
         super(Member, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('pcmapp:newcarregistration')
+        return reverse('member-detail',args=[str(self.id)] )
+"""
+Function to build
+1. create user when saving and link to member id
+2. update expiry date based on payment date
+3. display expiring records (within one month?)
 
+"""
 class Car(models.Model):
     PRIMARY_SEC_CHOICES = (
         (1,'Primary'),
@@ -85,7 +91,9 @@ class Car(models.Model):
             if val:
                 setattr(self, field_name, val.replace(" ",""))
         super(Car, self).save(*args, **kwargs)
-
+"""
+define secondary car insert
+"""
 class Payment(models.Model):
     PAYMENT_CHOICES= (
         ('1','New'),
@@ -97,5 +105,7 @@ class Payment(models.Model):
     payment_amount = models.IntegerField(verbose_name='Payment Amount')
     payment_type = models.CharField(max_length=1,choices = PAYMENT_CHOICES,verbose_name='Payment For')
     payment_receipt_image = models.FileField(upload_to='uploadreceipt',null=True,blank=True,verbose_name='Proof of Payment')
-
+"""
+update the expiry date when payment is made.
+"""
 

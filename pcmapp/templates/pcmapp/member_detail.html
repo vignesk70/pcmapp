@@ -1,0 +1,10 @@
+{% extends "pcmapp/base_site.html" %}
+{% block title %}<title>Peugeot Club Malaysia</title>{% endblock %}
+{% block content %}
+
+<h1>Member detail view</h1>
+
+Member name: {{ member.member_name}}</br>
+Membership expiry: {{member.member_expiry_date}}
+
+{% endblock %}
