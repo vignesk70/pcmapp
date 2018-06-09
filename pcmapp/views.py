@@ -134,7 +134,7 @@ class SCcheckDetailView(LoginRequiredMixin,generic.DetailView):
     def get_context_data(self, **kwargs):
         context =  super(SCcheckDetailView, self).get_context_data(**kwargs)
         context['car'] = Car.objects.get(pk=self.kwargs.get('pk',None))
-        context['member'] = Member.objects.get(id=context['car'].pk)
+        context['member'] = Member.objects.get(id=context['car'].member_id.pk)
         return context
 
 
