@@ -17,5 +17,5 @@ urlpatterns = [
     path('member/registration/car', views.NewCarRegistrationCreate.as_view(), name='newcarregistration'),
     path('member/sccheck',views.SCcheckView.as_view(),name='sccheck'),
     path('member/sccheckdetails/<int:pk>',views.SCcheckDetailView.as_view(),name='sccheckdetails'),
-]
+] 
 #    path('member/login', auth_views.login, name='login'),
