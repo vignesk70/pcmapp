@@ -1,9 +1,7 @@
 {% extends "pcmapp/base_site.html" %}
 {% block title %}<title>Peugeot Club Malaysia</title>{% endblock %}
 {% block content %}
-{%if form.error%}
-  <p>{{form.errors}}</p>
-{%endif%}
+
 {%if car%}
 <h1>Member detail view</h1>
     <p>Car number: {{car.car_reg_no}}</p>
