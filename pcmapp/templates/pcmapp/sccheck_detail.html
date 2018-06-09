@@ -1,14 +1,17 @@
 {% extends "pcmapp/base_site.html" %}
 {% block title %}<title>Peugeot Club Malaysia</title>{% endblock %}
 {% block content %}
-
+{%if form.error%}
+  <p>{{form.errors}}</p>
+{%endif%}
+{%if car%}
 <h1>Member detail view</h1>
-<ul>{%for car in object_list %}
-    <li>{{car.car_reg_no}}</li>
-</ul>
-Car Registration Number:
-Car Model:
-Members Name:
-Membership Expiry Date:
-Member Phone Number:
+    <p>Car number: {{car.car_reg_no}}</p>
+    <p>Name: {{member.member_name}}</p>
+    <p class="{% if member.is_expired%} text-danger {%else%} text-success{%endif%}">Expiry Date:{{member.member_expiry_date}}</p>
+    <p>Phone: {{member.member_phone}}</p>
+    <p>Email: {{member.member_email}}</p>
+{%else%}
+<p>No members found</p>
+{%endif%}
 {% endblock %}

@@ -7,7 +7,7 @@ urlpatterns = [
     #display list of members
     path('',views.IndexView.as_view(), name='index'),
     #get by  member
-    path('member/list/', views.NewMemberListView.as_view(), name='member=list'),
+    path('member/list/', views.NewMemberListView.as_view(), name='member-list'),
     path('member/<int:pk>',views.MemberDetailView.as_view(), name='member-detail'),
     #display list of payees
     path('payment/',views.PaymentInYearView.as_view(),name='payment'),

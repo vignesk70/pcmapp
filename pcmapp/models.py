@@ -57,6 +57,13 @@ class Member(models.Model):
                 setattr(self, field_name, val.upper())
         super(Member, self).save(*args, **kwargs)
 
+    @property
+    def is_expired(self):
+        if self.member_expiry_date < date.today():
+            return True
+        return False
+
+
     def get_absolute_url(self):
         return reverse('member-detail',args=[str(self.id)] )
 """
@@ -108,4 +115,3 @@ class Payment(models.Model):
 """
 update the expiry date when payment is made.
 """
-

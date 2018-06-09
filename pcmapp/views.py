@@ -107,24 +107,36 @@ class SCcheckView(LoginRequiredMixin,generic.FormView):
     model=Car
     template_name = 'pcmapp/sccheck.html'
     form_class = SCCheckForm
-    success_url = 'sccheckdetails'
-    def get_queryset(self, **kwargs):
+
+    def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        memberid=Car.objects.all().filter(car_reg_no=form.car_reg_no)
-        context = super(SCcheckView, self).get_context_data(**kwargs)
-        context['memberid']=memberid
-        return context
-#    def get_context_data(self, **kwargs):
-#        context = super(SCcheckView, self).get_context_data(**kwargs)
-#        context['memberid']=memberid
-#        return context
+        #carid = get_object_or_404(Car, car_reg_no=request.POST.get('car_reg_no'))
+        #self.success_url = 'sccheckdetails/%s' % carid.pk
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
 
+    def form_valid(self,form):
+        carid = Car.objects.get(car_reg_no=form.cleaned_data['car_reg_no'])
+        self.success_url = 'sccheckdetails/%s' % carid.pk
+        return HttpResponseRedirect(self.get_success_url())
 
-class SCcheckDetailView(generic.DetailView):
+    def form_invalid(self,form):
+        return self.render_to_response(
+            self.get_context_data(form=form))
+
+class SCcheckDetailView(LoginRequiredMixin,generic.DetailView):
     model = Car
     template_name = 'pcmapp/sccheck_detail.html'
+    def get_context_data(self, **kwargs):
+        context =  super(SCcheckDetailView, self).get_context_data(**kwargs)
+        context['car'] = Car.objects.get(pk=self.kwargs.get('pk',None))
+        context['member'] = Member.objects.get(id=context['car'].pk)
+        return context
+
 
 class MemberDetailView(generic.DetailView):
     model=Member
@@ -135,4 +147,3 @@ class NewMemberListView(generic.ListView):
     template_name= 'pcmapp/new_member_list.html'
     paginate_by=20
     queryset =  Member.objects.all().filter(member_expiry_date__isnull=True)
-

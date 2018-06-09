@@ -30,3 +30,12 @@ PaymentFormSet = inlineformset_factory(Member,
 
 class SCCheckForm(forms.Form):
     car_reg_no = forms.CharField(label='Car Registration number', max_length=10)
+
+    def clean_car_reg_no(self):
+        car_reg_no = self.cleaned_data['car_reg_no']
+        car_reg_no = car_reg_no.replace(" ","")
+        try:
+            obj = Car.objects.get(car_reg_no=car_reg_no)
+            return car_reg_no
+        except Car.DoesNotExist:
+            raise forms.ValidationError('No record found')
