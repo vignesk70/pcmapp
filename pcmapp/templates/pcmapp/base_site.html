@@ -38,15 +38,26 @@
       <ul class="sidebar-nav">
           <li><a href="{% url 'pcmapp:index' %}">Home</a></li>
           <li><a href="{% url 'pcmapp:newregistration' %}">New Member Registrations</a></li>
-          <li><a href="/pcmadmin">Admin Login</a></li>
           {% if user.is_authenticated %}
-          <li><a href="">Member - View Details</a></li>
-
-
+          {%load pcm_extras%}
+          {% if request.user|has_group:"Member" %}
+            <li><a href="">Member - View Details</a></li>
+          {% else %}
+          {% endif %}
+          {% if request.user|has_group:"PCM Admin" %}
+          <li><a href="/pcmadmin">Admin Login</a></li>
           <li><a href="">Dashboard</a></li>
           <li><a href="{% url 'pcmapp:member-list' %}">Admin-View New Registration</a></li>
-          <li><a href="">Admin-View Member List</a></li>
-          <li><a href="{% url 'pcmapp:sccheck' %}">SC Buddies Query</a></li>
+          {% else %}
+          {% endif %}
+
+
+
+          {% if request.user|has_group:"Service Center" %}
+            <li><a href="{% url 'pcmapp:sccheck' %}">SC Buddies Query</a></li>
+          {% else %}
+          {% endif %}
+
             {%endif%}
             {% if user.is_authenticated %}
             <li>User: {{ user.get_username }}</li>
@@ -54,6 +65,7 @@
             {% else %}
             <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
             {% endif %}
+
       </ul>
      {% endblock %}
       </div>
