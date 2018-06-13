@@ -2,7 +2,11 @@ from django import forms
 from django.forms.models import inlineformset_factory
 from .models import Member, Car, Payment
 
+
+
+
 class NewMemberRegistrationForm(forms.ModelForm):
+    #member_address_state = forms.ChoiceField(choices=STATE_CHOICES)
     class Meta:
         model = Member
         fields = ['member_name','member_email','member_phone','member_birthdate','member_address_state','member_address_postcode','member_on_chat','member_source']

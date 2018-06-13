@@ -17,7 +17,7 @@ with open(file) as csvfile:
         r = Payment(payment_car_reg_no=Member.objects.get(pk=p.id),payment_date=row['payment_date'],payment_amount=row['payment_amount'],payment_type=row['payment_type'])
         r.save()
 
-
+from django.contrib.auth.models import User,group
 
 #member_name,member_email,member_phone,member_since,member_birthdate,member_address_state,member_address_postcode,member_on_chat,member_source,member_expiry_date
 #car_reg_no,car_model,car_engine_chasis,car_primary_sec,car_status

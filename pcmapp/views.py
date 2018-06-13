@@ -11,12 +11,7 @@ from django.contrib.auth.models import User, Group
 from django import template
 
 # Create your views here.
-register = template.Library()
 
-@register.filter(name='has_group')
-def has_group(user, group_name):
-    group =  Group.objects.get(name=group_name)
-    return group in user.groups.all()
 #def index(request):
  #   member = Member.objects.all()
   #  context =  {'member' : member}
@@ -145,7 +140,7 @@ class SCcheckDetailView(LoginRequiredMixin,generic.DetailView):
         return context
 
 
-class MemberDetailView(generic.DetailView):
+class NewMemberDetailView(generic.DetailView):
     model=Member
     template_name='pcmapp/member_detail.html'
 
@@ -155,11 +150,11 @@ class NewMemberListView(generic.ListView):
     paginate_by=20
     queryset =  Member.objects.all().filter(member_expiry_date__isnull=True)
 
-class ViewMemberTest(LoginRequiredMixin,generic.TemplateView):
+class MemberDetailView(LoginRequiredMixin,generic.TemplateView):
     model=Member
     template_name='pcmapp/member_detail.html'
 
     def get_context_data(self,**kwargs):
-        context = super(ViewMemberTest,self).get_context_data(**kwargs)
+        context = super(MemberDetailView,self).get_context_data(**kwargs)
         context['member']= Member.objects.get(owner=self.request.user)
         return context

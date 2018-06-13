@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'material',
     'pcmapp.apps.PcmappConfig',
     'django.contrib.admin',
     'django.contrib.auth',

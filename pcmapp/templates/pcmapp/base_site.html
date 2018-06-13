@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
@@ -15,7 +14,9 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'pcmapp/style.css' %}" />
 
-    {%block head%} {% endblock%}
+    {%block head%}
+
+    {% endblock%}
 
 
 </head>
@@ -33,7 +34,7 @@
     </table>
 
     <div class="row">
-      <div class="col-sm-2">
+      <div class="col-sm-3">
       {% block sidebar %}
       <ul class="sidebar-nav">
           <li><a href="{% url 'pcmapp:index' %}">Home</a></li>
@@ -41,7 +42,7 @@
           {% if user.is_authenticated %}
           {%load pcm_extras%}
           {% if request.user|has_group:"Member" %}
-            <li><a href="">Member - View Details</a></li>
+            <li><a href="{%url 'pcmapp:member-view' %}">Member - View Details</a></li>
           {% else %}
           {% endif %}
           {% if request.user|has_group:"PCM Admin" %}
@@ -69,7 +70,7 @@
       </ul>
      {% endblock %}
       </div>
-      <div class="col-sm-10 ">
+      <div class="col-sm-9 ">
       {% block content %}{% endblock %}
       {% block pagination %}
   {% if is_paginated %}
