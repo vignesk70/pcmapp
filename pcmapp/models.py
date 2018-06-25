@@ -2,7 +2,7 @@ from django.db import models
 from datetime import date
 from django.urls import reverse
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 
 # Create your models here.
 
@@ -55,6 +55,14 @@ class Member(models.Model):
             val = getattr(self, field_name, False)
             if val:
                 setattr(self, field_name, val.upper())
+        r =  User.objects.filter(email=self.member_email)
+        if (r.count() < 1):
+            user = User.objects.create_user(self.member_email,self.member_email,'asdfgh123')
+            user.save()
+            g = Group.objects.get(name='Member')
+            g.user_set.add(user)
+            g.save()
+            self.owner = user
         super(Member, self).save(*args, **kwargs)
 
     @property

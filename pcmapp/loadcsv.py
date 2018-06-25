@@ -17,7 +17,20 @@ with open(file) as csvfile:
         r = Payment(payment_car_reg_no=Member.objects.get(pk=p.id),payment_date=row['payment_date'],payment_amount=row['payment_amount'],payment_type=row['payment_type'])
         r.save()
 
-from django.contrib.auth.models import User,group
+from django.contrib.auth.models import User,Group
+from pcmapp.models import Member
+members = Member.objects.all()
+for mem in members:
+    r =  User.objects.filter(email=mem.member_email)
+    print(mem.id)
+    if (r.count() < 1):
+        user = User.objects.create_user(mem.member_email,mem.member_email,'asdfgh123')
+        user.save()
+        g = Group.objects.get(name='Member')
+        g.user_set.add(user)
+        g.save()
+        mem.owner = user
+        mem.save()
 
 #member_name,member_email,member_phone,member_since,member_birthdate,member_address_state,member_address_postcode,member_on_chat,member_source,member_expiry_date
 #car_reg_no,car_model,car_engine_chasis,car_primary_sec,car_status
