@@ -76,15 +76,15 @@ WSGI_APPLICATION = 'pcm.wsgi.application'
  #'ENGINE': 'django.db.backends.sqlite3',
        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'vignesk70$pcmapp',
-#         'USER': 'vignesk70',
-#         'PASSWORD': 'asdfgh123',
-#         'HOST': 'vignesk70.mysql.pythonanywhere-services.com',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'vignesk70$pcmapp',
+        'USER': 'vignesk70',
+        'PASSWORD': 'asdfgh123',
+        'HOST': 'vignesk70.mysql.pythonanywhere-services.com',
+    }
+}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -94,15 +94,15 @@ WSGI_APPLICATION = 'pcm.wsgi.application'
 #         'HOST': 'peugeotclubmalaysia.mysql.pythonanywhere-services.com',
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pcmapp',
-        'USER': 'root',
-        'PASSWORD': 'asdfgh123',
-        'HOST': 'localhost',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'pcmapp',
+#         'USER': 'root',
+#         'PASSWORD': 'asdfgh123',
+#         'HOST': 'localhost',
+#     }
+# }
 
 
 
