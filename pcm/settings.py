@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'material',
     'pcmapp.apps.PcmappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -86,11 +85,20 @@ WSGI_APPLICATION = 'pcm.wsgi.application'
 #         'HOST': 'vignesk70.mysql.pythonanywhere-services.com',
 #     }
 # }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'peugeotclubmalay$pcmapp',
+#         'USER': 'peugeotclubmalay',
+#         'PASSWORD': 'asdfgh123',
+#         'HOST': 'peugeotclubmalaysia.mysql.pythonanywhere-services.com',
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pcmapp',
-        'USER': 'ubuntu',
+        'USER': 'root',
         'PASSWORD': 'asdfgh123',
         'HOST': 'localhost',
     }

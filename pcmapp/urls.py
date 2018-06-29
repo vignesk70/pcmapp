@@ -12,7 +12,7 @@ urlpatterns = [
     path('member/<int:pk>',views.NewMemberDetailView.as_view(), name='member-detail'),
     #display list of payees
     path('payment/',views.PaymentInYearView.as_view(),name='payment'),
-
+    path('expiring/',views.ExpiringMembershipList.as_view(), name='expiring_members'),
     path('member/registration/',views.NewMemberRegistrationView.as_view(),name='newregistration'),
     path('member/registration/registrationsuccess/',views.RegistrationSuccess.as_view(),name='registrationsuccess'),
     #path('member/registration/car', views.NewCarRegistrationCreate.as_view(), name='newcarregistration'),

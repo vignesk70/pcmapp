@@ -9,6 +9,7 @@ from .models import Member,Payment,Car
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User, Group
 from django import template
+from datetime import date
 
 # Create your views here.
 
@@ -158,3 +159,7 @@ class MemberDetailView(LoginRequiredMixin,generic.TemplateView):
         context = super(MemberDetailView,self).get_context_data(**kwargs)
         context['member']= Member.objects.get(owner=self.request.user)
         return context
+
+class ExpiringMembershipList(generic.ListView):
+    template_name = 'pcmapp/expiring_members.html'
+    queryset = Member.objects.all().filter(member_expiry_date__month=date.today().month,member_expiry_date__year=date.today().year)

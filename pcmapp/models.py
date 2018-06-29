@@ -71,9 +71,16 @@ class Member(models.Model):
             return True
         return False
 
-
     def get_absolute_url(self):
         return reverse('member-detail',args=[str(self.id)] )
+
+class MemberManager(models.Manager):
+    @property
+    def is_expiring_in_month(self):
+        return self.get_queryset().filter(member_expiry_date__month = date.today().month)
+
+
+
 """
 Function to build
 1. create user when saving and link to member id
